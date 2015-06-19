@@ -1,0 +1,6 @@
+exclude_paths:
+ - "/lib/testing.php"
+ - "/vendor/"
+engines:
+  phpcodesniffer:
+    enabled: true

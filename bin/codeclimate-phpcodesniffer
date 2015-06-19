@@ -1,0 +1,3 @@
+#!/bin/sh
+RUNNING_PATH="`dirname \"$0\"`"
+php $RUNNING_PATH/../engine.php
