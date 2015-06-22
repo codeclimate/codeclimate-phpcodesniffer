@@ -58,7 +58,7 @@ if (is_array($phpcs_output['files'])) {
                         'end' => $phpcs_issue_data['line']
                     )
                 ),
-                'remediation_points' => $phpcs_issue_data['severity'] * $phpcs_issue_data['severity'] * 100
+                'remediation_points' => $phpcs_issue_data['severity'] * 50000
             );
             $iterations++;
 
