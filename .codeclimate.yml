@@ -1,9 +1,8 @@
 exclude_paths:
- - "/examples/*"
+ - "/vendor/*"
 engines:
   phpcodesniffer:
     enabled: true
     config:
-      - custom_exclude_paths: "*/test.php","/vendor/"
-      - file_extensions: "php,inc,lib"
+      - file_extensions: "php"
       - standard: "PSR1","PSR2"
