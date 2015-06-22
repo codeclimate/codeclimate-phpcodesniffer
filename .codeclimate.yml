@@ -1,6 +1,8 @@
 exclude_paths:
- - "/lib/testing.php"
- - "/vendor/"
+ - "/vendor/*"
 engines:
   phpcodesniffer:
     enabled: true
+    config:
+      - file_extensions: "php"
+      - standard: "PSR1","PSR2"
