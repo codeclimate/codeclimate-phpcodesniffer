@@ -1,4 +1,6 @@
-# Code Climate PHP_CodeSniffer Engine
+# Code Climate PHP_CodeSniffer Engine<br>
+
+[![Code Climate](https://codeclimate.com/repos/558b317f69568073bf0021e5/badges/7c2a59b5bee6d2425207/gpa.svg)](https://codeclimate.com/repos/558b317f69568073bf0021e5/feed)
 
 `codeclimate-phpcodesniffer` is a Code Climate engine that wraps the [PHP Code Sniffer](https://github.com/squizlabs/PHP_CodeSniffer) static analysis tool. You can run it on your command line using the Code Climate CLI, or on our hosted analysis platform.
 
