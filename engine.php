@@ -37,7 +37,7 @@ else {
 $phpcs_config_options = implode(' ',$extra_config_options);
 
 $process = new Process("./vendor/bin/phpcs $phpcs_config_options /code");
-$process->setTimeout(null);
+$process->setTimeout(10 * 60); // 600 sec = 10 minutes max runtime as per spec
 $process->run();
 
 $phpcs_output = json_decode($process->getOutput(), true);
