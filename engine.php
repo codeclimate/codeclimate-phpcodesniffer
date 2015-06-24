@@ -37,6 +37,7 @@ else {
 $phpcs_config_options = implode(' ',$extra_config_options);
 
 $process = new Process("./vendor/bin/phpcs $phpcs_config_options /code");
+$process->setTimeout(null);
 $process->run();
 
 $phpcs_output = json_decode($process->getOutput(), true);
