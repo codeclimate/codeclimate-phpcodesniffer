@@ -21,14 +21,17 @@ Format the values for these config options per the [PHP_CodeSniffer documentatio
 ###Sample Config
 
     exclude_paths:
-     - "/examples/*
+     - "/examples/**/*"
     engines:
       phpcodesniffer:
         enabled: true
         config:
           - custom_exclude_paths: "*/test.php","/vendor/"
           - file_extensions: "php,inc,lib"
-          - standard: "PSR1","PSR2"
+          - standard: ["PSR1","PSR2"]
+    ratings:
+      paths:
+      - "**.php"
 
 ### Need help?
 
