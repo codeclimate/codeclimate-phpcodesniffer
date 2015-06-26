@@ -9,6 +9,10 @@ RUN apk --update add php-common php-iconv php-json php-phar php-openssl curl && 
     /usr/src/app/composer.phar install && \
     apk del build-base && rm -fr /usr/share/ri
 
+
+RUN adduser -u 9000 -D app
+USER app
+
 COPY . /usr/src/app
 
 CMD ["/usr/src/app/bin/codeclimate-phpcodesniffer"]
