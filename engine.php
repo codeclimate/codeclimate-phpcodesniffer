@@ -3,12 +3,15 @@
 /* Hooking into Composer's autoloader */
 require_once __DIR__.'/vendor/autoload.php';
 
+/* Suppress warnings */
+error_reporting(E_ERROR | E_PARSE | E_NOTICE);
 
 /* Starting Symfony's Process to access CLI */
 use Symfony\Component\Process\Process;
 
-/*Pulling in the environmental variables we need */
-$cc_config = json_decode(getenv('ENGINE_CONFIG'), true);
+/* Read the configuration from the filesystem */
+$config_json = file_get_contents('/config.json');
+$cc_config = json_decode($config_json, true);
 
 $extra_config_options = array('--report=json');
 
