@@ -18,15 +18,12 @@ $extra_config_options = array('--report=json');
 if (isset($cc_config['config']['file_extensions'])) {
     $extra_config_options[] = '--extensions=' . $cc_config['config']['file_extensions'];
 }
-if (isset($cc_config['config']['custom_exclude_paths']) || isset($cc_config['exclude_paths'])) {
+if (isset($cc_config['exclude_paths'])) {
     if (is_array($cc_config['exclude_paths'])) {
-        if(isset($cc_config['config']['custom_exclude_paths'])) {
-            $cc_config['exclude_paths'][] = $cc_config['config']['custom_exclude_paths'];
-        }
-        $cc_exclude_paths = implode(',',$cc_config['exclude_paths']);
+        $cc_exclude_paths = implode(',', $cc_config['exclude_paths']);
     }
     else {
-        $cc_exclude_paths = $cc_config['config']['custom_exclude_paths'];
+        $cc_exclude_paths = $cc_config['exclude_paths'];
     }
     $extra_config_options[] = "--ignore=$cc_exclude_paths";
 }
@@ -37,7 +34,7 @@ else {
     $extra_config_options[] = '--standard=PSR1,PSR2';
 }
 
-$phpcs_config_options = implode(' ',$extra_config_options);
+$phpcs_config_options = implode(' ', $extra_config_options);
 
 $process = new Process("./vendor/bin/phpcs $phpcs_config_options /code");
 $process->setTimeout(10 * 60); // 600 sec = 10 minutes max runtime as per spec
@@ -46,10 +43,10 @@ $process->run();
 $phpcs_output = json_decode($process->getOutput(), true);
 
 if (is_array($phpcs_output['files'])) {
-    foreach($phpcs_output['files'] as $phpcs_file => $phpcs_issues) {
+    foreach ($phpcs_output['files'] as $phpcs_file => $phpcs_issues) {
         $numIssues = count($phpcs_issues['messages']);
         $iterations = 0;
-        foreach($phpcs_issues['messages'] as $phpcs_issue_data) {
+        foreach ($phpcs_issues['messages'] as $phpcs_issue_data) {
             $cleaned_single_issue = array(
                 'type' => 'issue',
                 'check_name' => str_replace('.', ' ', $phpcs_issue_data['source']),
@@ -67,7 +64,7 @@ if (is_array($phpcs_output['files'])) {
             $iterations++;
 
             file_put_contents('php://stdout', json_encode($cleaned_single_issue, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE));
-            if($iterations < $numIssues) {
+            if ($iterations < $numIssues) {
                 file_put_contents('php://stdout', chr(0));
             }
 
