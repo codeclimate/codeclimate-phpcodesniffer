@@ -26,9 +26,9 @@ Format the values for these config options per the [PHP_CodeSniffer documentatio
       phpcodesniffer:
         enabled: true
         config:
-          - custom_exclude_paths: "*/test.php","/vendor/"
-          - file_extensions: "php,inc,lib"
-          - standard: ["PSR1","PSR2"]
+          custom_exclude_paths: "*/test.php","/vendor/"
+          file_extensions: "php,inc,lib"
+          standard: "PSR1, PSR2"
     ratings:
       paths:
       - "**.php"
