@@ -14,9 +14,9 @@ PHP_CodeSniffer helps you detect violations of a defined coding standard.
 
 Format the values for these config options per the [PHP_CodeSniffer documentation](https://github.com/squizlabs/PHP_CodeSniffer).
 
-1. file_extensions - This is where you can configure the file extensions for the files that you want PHP_CodeSniffer to analyze.
-2. standard - This is the list of standards that you want PHP_CodeSniffer to use while analyzing your files.
-3. ignore_warnings - You can hide warnings, and only report errors with this option.
+* file_extensions - This is where you can configure the file extensions for the files that you want PHP_CodeSniffer to analyze.
+* standard - This is the list of standards that you want PHP_CodeSniffer to use while analyzing your files.
+* ignore_warnings - You can hide warnings, and only report errors with this option.
 
 ###Sample Config
 
