@@ -5,6 +5,8 @@ require_once __DIR__.'/vendor/autoload.php';
 
 /* Suppress warnings */
 error_reporting(E_ERROR | E_PARSE | E_NOTICE);
+date_default_timezone_set('UTC');
+ini_set('memory_limit', -1);
 
 /* Starting Symfony's Process to access CLI */
 use Symfony\Component\Process\Process;
@@ -13,43 +15,49 @@ use Symfony\Component\Process\Process;
 $config_json = file_get_contents('/config.json');
 $cc_config = json_decode($config_json, true);
 
-$extra_config_options = array('--report=json');
+$report_file = tempnam(sys_get_temp_dir(), 'phpcs');
+$extra_config_options = array('--report=json', '--report-file=' . $report_file);
 
 if (isset($cc_config['config']['file_extensions'])) {
     $extra_config_options[] = '--extensions=' . $cc_config['config']['file_extensions'];
 }
-if (isset($cc_config['config']['custom_exclude_paths']) || isset($cc_config['exclude_paths'])) {
-    if (is_array($cc_config['exclude_paths'])) {
-        if(isset($cc_config['config']['custom_exclude_paths'])) {
-            $cc_config['exclude_paths'][] = $cc_config['config']['custom_exclude_paths'];
-        }
-        $cc_exclude_paths = implode(',',$cc_config['exclude_paths']);
-    }
-    else {
-        $cc_exclude_paths = $cc_config['config']['custom_exclude_paths'];
-    }
-    $extra_config_options[] = "--ignore=$cc_exclude_paths";
-}
+
 if (isset($cc_config['config']['standard'])) {
     $extra_config_options[] = '--standard=' . $cc_config['config']['standard'];
-}
-else {
+} else {
     $extra_config_options[] = '--standard=PSR1,PSR2';
 }
 
-$phpcs_config_options = implode(' ',$extra_config_options);
+if ($cc_config["exclude_paths"]) {
+    foreach ($cc_config["exclude_paths"] as $exclude_path) {
+        $extra_config_options[] = "--ignore=/code/" . $exclude_path;
+    }
+}
 
-$process = new Process("./vendor/bin/phpcs $phpcs_config_options /code");
-$process->setTimeout(10 * 60); // 600 sec = 10 minutes max runtime as per spec
-$process->run();
+$extra_config_options[] = "/code";
 
-$phpcs_output = json_decode($process->getOutput(), true);
+// prevent any stdout leakage
+ob_start();
+
+// setup the code sniffer
+$cli = new PHP_CodeSniffer_CLI();
+$cli->setCommandLineValues($extra_config_options);
+
+// start the code sniffing
+PHP_CodeSniffer_Reporting::startTiming();
+$cli->checkRequirements();
+$cli->process();
+
+// clean up the output buffers (might be more that one)
+while (ob_get_level()) {
+    ob_end_clean();
+}
+
+$phpcs_output = json_decode(file_get_contents($report_file), true);
 
 if (is_array($phpcs_output['files'])) {
-    foreach($phpcs_output['files'] as $phpcs_file => $phpcs_issues) {
-        $numIssues = count($phpcs_issues['messages']);
-        $iterations = 0;
-        foreach($phpcs_issues['messages'] as $phpcs_issue_data) {
+    foreach ($phpcs_output['files'] as $phpcs_file => $phpcs_issues) {
+        foreach ($phpcs_issues['messages'] as $phpcs_issue_data) {
             $cleaned_single_issue = array(
                 'type' => 'issue',
                 'check_name' => str_replace('.', ' ', $phpcs_issue_data['source']),
@@ -64,15 +72,11 @@ if (is_array($phpcs_output['files'])) {
                 ),
                 'remediation_points' => $phpcs_issue_data['severity'] * 75000
             );
-            $iterations++;
-
-            file_put_contents('php://stdout', json_encode($cleaned_single_issue, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE));
-            if($iterations < $numIssues) {
-                file_put_contents('php://stdout', chr(0));
-            }
-
+            file_put_contents(
+                'php://stdout',
+                json_encode($cleaned_single_issue, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE)
+            );
+            file_put_contents('php://stdout', chr(0));
         }
     }
 }
-
-exit(0);
