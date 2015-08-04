@@ -14,9 +14,8 @@ PHP_CodeSniffer helps you detect violations of a defined coding standard.
 
 Format the values for these config options per the [PHP_CodeSniffer documentation](https://github.com/squizlabs/PHP_CodeSniffer).
 
-1. custom_exclude_paths - These are files that you want to exclude from the PHP_CodeSniffer analysis, but not from other Code Climate analyses.
-2. file_extensions - This is where you can configure the file extensions for the files that you want PHP_CodeSniffer to analyze.
-3. standard - This is the list of standards that you want PHP_CodeSniffer to use while analyzing your files.
+1. file_extensions - This is where you can configure the file extensions for the files that you want PHP_CodeSniffer to analyze.
+2. standard - This is the list of standards that you want PHP_CodeSniffer to use while analyzing your files.
 
 ###Sample Config
 
@@ -26,7 +25,6 @@ Format the values for these config options per the [PHP_CodeSniffer documentatio
       phpcodesniffer:
         enabled: true
         config:
-          custom_exclude_paths: "*/test.php","/vendor/"
           file_extensions: "php,inc,lib"
           standard: "PSR1, PSR2"
     ratings:
