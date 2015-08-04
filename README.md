@@ -16,6 +16,7 @@ Format the values for these config options per the [PHP_CodeSniffer documentatio
 
 1. file_extensions - This is where you can configure the file extensions for the files that you want PHP_CodeSniffer to analyze.
 2. standard - This is the list of standards that you want PHP_CodeSniffer to use while analyzing your files.
+3. ignore_warnings - You can hide warnings, and only report errors with this option.
 
 ###Sample Config
 
@@ -27,6 +28,7 @@ Format the values for these config options per the [PHP_CodeSniffer documentatio
         config:
           file_extensions: "php,inc,lib"
           standard: "PSR1, PSR2"
+          ignore_warnings: true
     ratings:
       paths:
       - "**.php"

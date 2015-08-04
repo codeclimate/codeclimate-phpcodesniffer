@@ -28,6 +28,10 @@ if (isset($cc_config['config']['standard'])) {
     $extra_config_options[] = '--standard=PSR1,PSR2';
 }
 
+if (isset($cc_config['config']['ignore_warnings'])) {
+    $extra_config_options[] = '-n';
+}
+
 if ($cc_config["exclude_paths"]) {
     foreach ($cc_config["exclude_paths"] as $exclude_path) {
         $extra_config_options[] = "--ignore=/code/" . $exclude_path;
