@@ -1,6 +1,7 @@
 {
     "require": {
-        "symfony/process": "^2.7",
-        "squizlabs/php_codesniffer": "^2.3"
+        "squizlabs/php_codesniffer": "^2.3",
+        "barracudanetworks/forkdaemon-php": "1.0.*",
+        "danielstjules/stringy": "~2.0"
     }
 }
