@@ -27,7 +27,7 @@ Format the values for these config options per the [PHP_CodeSniffer documentatio
         enabled: true
         config:
           file_extensions: "php,inc,lib"
-          standard: "PSR1, PSR2"
+          standard: "PSR1,PSR2"
           ignore_warnings: true
     ratings:
       paths:
