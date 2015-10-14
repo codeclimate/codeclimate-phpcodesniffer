@@ -15,32 +15,64 @@ class Runner
 
     public function queueDirectory($dir, $prefix = '')
     {
+        if(isset($this->config['include_paths'])) {
+            $this->queueWithIncludePaths();
+        } else {
+            $this->queuePaths($dir, $prefix, $this->config['exclude_paths']);
+        }
+
+        $this->server->process_work(false);
+    }
+
+    public function queueWithIncludePaths() {
+        foreach ($this->config['include_paths'] as $f) {
+            if ($f !== '.' and $f !== '..') {
+
+                if (is_dir("/code$f")) {
+                    $this->queuePaths("/code$f", "$f/");
+                    continue;
+                }
+
+                if (isset($this->config['config']['file_extensions'])) {
+                    $this->filterByExtension($f);
+                } else {
+                    $this->server->addwork(array("/code/$f"));
+                }
+            }
+        }
+    }
+
+    public function queuePaths($dir, $prefix = '', $exclusions = []) {
         $dir = rtrim($dir, '\\/');
 
         foreach (scandir($dir) as $f) {
-            if (in_array("$prefix$f", $this->config["exclude_paths"])) {
+            if (in_array("$prefix$f", $exclusions)) {
                 continue;
             }
 
             if ($f !== '.' and $f !== '..') {
                 if (is_dir("$dir/$f")) {
-                    $this->queueDirectory("$dir/$f", "$prefix$f/");
+                    $this->queuePaths("$dir/$f", "$prefix$f/", $exclusions);
                     continue;
                 }
 
                 if (isset($this->config['config']['file_extensions'])) {
-                    foreach (explode(",", $this->config['config']['file_extensions']) as $file_extension) {
-                        if (S::create($f)->endsWith("." . $file_extension)) {
-                            $this->server->addwork(array("/code/$prefix$f"));
-                        }
-                    }
+                    $this->filterByExtension($f, $prefix);
                 } else {
+                    $prefix = ltrim($prefix, "\\/");
                     $this->server->addwork(array("/code/$prefix$f"));
                 }
             }
         }
+    }
 
-        $this->server->process_work(false);
+    public function filterByExtension($f, $prefix = '') {
+        foreach (explode(",", $this->config['config']['file_extensions']) as $file_extension) {
+            if (S::create($f)->endsWith("." . $file_extension)) {
+                $prefix = ltrim($prefix, "\\/");
+                $this->server->addwork(array("/code/$prefix$f"));
+            }
+        }
     }
 
     public function run($files)
