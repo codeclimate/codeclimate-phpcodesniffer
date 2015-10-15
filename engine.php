@@ -5,7 +5,7 @@ require_once __DIR__.'/vendor/autoload.php';
 require_once "Runner.php";
 
 // Suppress warnings
-error_reporting(E_ERROR | E_PARSE | E_NOTICE);
+error_reporting(E_ERROR | E_PARSE);
 date_default_timezone_set('UTC');
 ini_set('memory_limit', -1);
 
