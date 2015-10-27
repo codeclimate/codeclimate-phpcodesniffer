@@ -4,6 +4,7 @@ use Stringy\Stringy as S;
 
 class Runner
 {
+    const DEFAULT_EXTENSIONS = array("php", "inc", "module");
     private $config;
     private $server;
 
@@ -15,34 +16,28 @@ class Runner
 
     public function queueDirectory($dir, $prefix = '')
     {
-        if(isset($this->config['include_paths'])) {
-            $this->queueWithIncludePaths();
-        } else {
-            $this->queuePaths($dir, $prefix, $this->config['exclude_paths']);
-        }
-
+        $this->queueWithIncludePaths();
         $this->server->process_work(false);
     }
 
     public function queueWithIncludePaths() {
         foreach ($this->config['include_paths'] as $f) {
             if ($f !== '.' and $f !== '..') {
-
-                if (is_dir("/code$f")) {
-                    $this->queuePaths("/code$f", "$f/");
-                    continue;
+                if ($f == "./") {
+                    $f = "";
                 }
 
-                if (isset($this->config['config']['file_extensions'])) {
-                    $this->filterByExtension($f);
+                if (is_dir(realpath("/code$f"))) {
+                    $this->queuePaths("/code$f", "$f/");
+                    continue;
                 } else {
-                    $this->server->addwork(array("/code/$f"));
+                    $this->filterByExtension($f);
                 }
             }
         }
     }
 
-    public function queuePaths($dir, $prefix = '', $exclusions = []) {
+    public function queuePaths($dir, $prefix = '') {
         $dir = rtrim($dir, '\\/');
 
         foreach (scandir($dir) as $f) {
@@ -52,26 +47,31 @@ class Runner
 
             if ($f !== '.' and $f !== '..') {
                 if (is_dir("$dir/$f")) {
-                    $this->queuePaths("$dir/$f", "$prefix$f/", $exclusions);
+                    $this->queuePaths("$dir/$f", "$prefix$f/");
                     continue;
-                }
-
-                if (isset($this->config['config']['file_extensions'])) {
-                    $this->filterByExtension($f, $prefix);
                 } else {
-                    $prefix = ltrim($prefix, "\\/");
-                    $this->server->addwork(array("/code/$prefix$f"));
+                    $this->filterByExtension($f, $prefix);
                 }
             }
         }
     }
 
     public function filterByExtension($f, $prefix = '') {
-        foreach (explode(",", $this->config['config']['file_extensions']) as $file_extension) {
-            if (S::create($f)->endsWith("." . $file_extension)) {
+        foreach ($this->fileExtensions() as $file_extension) {
+            if (S::create($f)->endsWith($file_extension)) {
                 $prefix = ltrim($prefix, "\\/");
                 $this->server->addwork(array("/code/$prefix$f"));
             }
+        }
+    }
+
+    private function fileExtensions() {
+        $extensions = $this->config['config']['file_extensions'];
+
+        if (empty($extensions)) {
+            return self::DEFAULT_EXTENSIONS;
+        } else {
+            return explode(",", $extensions);
         }
     }
 
