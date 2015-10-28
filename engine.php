@@ -3,6 +3,9 @@
 // Hooking into Composer's autoloader
 require_once __DIR__.'/vendor/autoload.php';
 require_once "Runner.php";
+require_once "Sniffs.php";
+
+use Sniffs\Sniffs;
 
 // Suppress warnings
 error_reporting(E_ERROR | E_PARSE);
@@ -32,25 +35,27 @@ foreach ($server->get_all_results() as $result_file) {
     if (is_array($phpcs_output['files'])) {
         foreach ($phpcs_output['files'] as $phpcs_file => $phpcs_issues) {
             foreach ($phpcs_issues['messages'] as $phpcs_issue_data) {
-                $cleaned_single_issue = array(
-                    'type' => 'issue',
-                    'check_name' => str_replace('.', ' ', $phpcs_issue_data['source']),
-                    'description' => $phpcs_issue_data['message'],
-                    'categories' => array('Style'),
-                    'location' => array(
-                        'path' => str_replace('/code/', '', $phpcs_file),
-                        'lines' => array(
-                            'begin' => $phpcs_issue_data['line'],
-                            'end' => $phpcs_issue_data['line']
-                        )
-                    ),
-                    'remediation_points' => $phpcs_issue_data['severity'] * 75000
-                );
-                file_put_contents(
-                    'php://stdout',
-                    json_encode($cleaned_single_issue, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE)
-                );
-                file_put_contents('php://stdout', chr(0));
+                if (Sniffs::isValidIssue($phpcs_issue_data)) {
+                    $cleaned_single_issue = array(
+                        'type' => 'issue',
+                        'check_name' => str_replace('.', ' ', $phpcs_issue_data["source"]),
+                        'description' => $phpcs_issue_data['message'],
+                        'categories' => array('Style'),
+                        'location' => array(
+                            'path' => str_replace('/code/', '', $phpcs_file),
+                            'lines' => array(
+                                'begin' => $phpcs_issue_data['line'],
+                                'end' => $phpcs_issue_data['line']
+                            )
+                        ),
+                        'remediation_points' => Sniffs::pointsFor($phpcs_issue_data)
+                    );
+                    file_put_contents(
+                        'php://stdout',
+                        json_encode($cleaned_single_issue, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE)
+                    );
+                    file_put_contents('php://stdout', chr(0));
+                }
             }
         }
     }
