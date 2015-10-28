@@ -4,6 +4,8 @@ use Stringy\Stringy as S;
 
 class Runner
 {
+    const DEFAULT_EXTENSIONS = array("php", "inc", "module");
+
     private $config;
     private $server;
 
@@ -29,16 +31,10 @@ class Runner
     public function queueWithIncludePaths() {
         foreach ($this->config['include_paths'] as $f) {
             if ($f !== '.' and $f !== '..') {
-
-                if (is_dir("$f")) {
+                if (is_dir("/code$f")) {
                     $this->queuePaths("$f", "$f/");
-                    continue;
-                }
-
-                if (isset($this->config['config']['file_extensions'])) {
-                    $this->filterByExtension($f);
                 } else {
-                    $this->server->addwork(array("$f"));
+                    $this->filterByExtension($f);
                 }
             }
         }
@@ -55,14 +51,8 @@ class Runner
             if ($f !== '.' and $f !== '..') {
                 if (is_dir("$dir/$f")) {
                     $this->queuePaths("$dir/$f", "$prefix$f/", $exclusions);
-                    continue;
-                }
-
-                if (isset($this->config['config']['file_extensions'])) {
-                    $this->filterByExtension($f, $prefix);
                 } else {
-                    $prefix = ltrim($prefix, "\\/");
-                    $this->server->addwork(array("$prefix$f"));
+                    $this->filterByExtension($f, $prefix);
                 }
             }
         }
@@ -70,10 +60,20 @@ class Runner
 
     public function filterByExtension($f, $prefix = '') {
         foreach (explode(",", $this->config['config']['file_extensions']) as $file_extension) {
-            if (S::create($f)->endsWith("." . $file_extension)) {
+            if (S::create($f)->endsWith($file_extension)) {
                 $prefix = ltrim($prefix, "\\/");
                 $this->server->addwork(array("$prefix$f"));
             }
+        }
+    }
+
+    private function fileExtensions() {
+        $extensions = $this->config['config']['file_extensions'];
+
+        if (empty($extensions)) {
+            return self::DEFAULT_EXTENSIONS;
+        } else {
+            return explode(",", $extensions);
         }
     }
 
