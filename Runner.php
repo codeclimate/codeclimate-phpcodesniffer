@@ -31,7 +31,7 @@ class Runner
     public function queueWithIncludePaths() {
         foreach ($this->config['include_paths'] as $f) {
             if ($f !== '.' and $f !== '..') {
-                if (is_dir("/code$f")) {
+                if (is_dir($f)) {
                     $this->queuePaths("$f", "$f/");
                 } else {
                     $this->filterByExtension($f);
@@ -59,7 +59,7 @@ class Runner
     }
 
     public function filterByExtension($f, $prefix = '') {
-        foreach (explode(",", $this->config['config']['file_extensions']) as $file_extension) {
+        foreach ($this->fileExtensions() as $file_extension) {
             if (S::create($f)->endsWith($file_extension)) {
                 $prefix = ltrim($prefix, "\\/");
                 $this->server->addwork(array("$prefix$f"));
