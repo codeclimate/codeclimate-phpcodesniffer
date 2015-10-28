@@ -15,6 +15,8 @@ class Runner
 
     public function queueDirectory($dir, $prefix = '')
     {
+        chdir("/code");
+
         if(isset($this->config['include_paths'])) {
             $this->queueWithIncludePaths();
         } else {
@@ -28,15 +30,15 @@ class Runner
         foreach ($this->config['include_paths'] as $f) {
             if ($f !== '.' and $f !== '..') {
 
-                if (is_dir("/code$f")) {
-                    $this->queuePaths("/code$f", "$f/");
+                if (is_dir("$f")) {
+                    $this->queuePaths("$f", "$f/");
                     continue;
                 }
 
                 if (isset($this->config['config']['file_extensions'])) {
                     $this->filterByExtension($f);
                 } else {
-                    $this->server->addwork(array("/code/$f"));
+                    $this->server->addwork(array("$f"));
                 }
             }
         }
@@ -60,7 +62,7 @@ class Runner
                     $this->filterByExtension($f, $prefix);
                 } else {
                     $prefix = ltrim($prefix, "\\/");
-                    $this->server->addwork(array("/code/$prefix$f"));
+                    $this->server->addwork(array("$prefix$f"));
                 }
             }
         }
@@ -70,7 +72,7 @@ class Runner
         foreach (explode(",", $this->config['config']['file_extensions']) as $file_extension) {
             if (S::create($f)->endsWith("." . $file_extension)) {
                 $prefix = ltrim($prefix, "\\/");
-                $this->server->addwork(array("/code/$prefix$f"));
+                $this->server->addwork(array("$prefix$f"));
             }
         }
     }
