@@ -42,7 +42,7 @@ foreach ($server->get_all_results() as $result_file) {
                         'description' => $phpcs_issue_data['message'],
                         'categories' => array('Style'),
                         'location' => array(
-                            'path' => str_replace('/code/', '', $phpcs_file),
+                            'path' => preg_replace('/^\/code\//', '', $phpcs_file),
                             'lines' => array(
                                 'begin' => $phpcs_issue_data['line'],
                                 'end' => $phpcs_issue_data['line']
