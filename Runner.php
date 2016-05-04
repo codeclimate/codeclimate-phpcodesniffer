@@ -93,6 +93,10 @@ class Runner
             $extra_config_options[] = '-n';
         }
 
+        if (isset($this->config['config']['encoding'])) {
+            $extra_config_options[] = '--encoding=' . $this->config['config']['encoding'];
+        }
+
         foreach ($files as $file) {
             $extra_config_options[] = $file;
         }

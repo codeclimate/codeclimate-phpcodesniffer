@@ -17,6 +17,7 @@ Format the values for these config options per the [PHP_CodeSniffer documentatio
 * file_extensions - This is where you can configure the file extensions for the files that you want PHP_CodeSniffer to analyze.
 * standard - This is the list of standards that you want PHP_CodeSniffer to use while analyzing your files.
 * ignore_warnings - You can hide warnings, and only report errors with this option.
+* encoding - By default, PHPCS uses ISO-8859-1. Use this to change it to your encoding, e.g. UTF-8.
 
 ###Sample Config
 
@@ -29,6 +30,7 @@ Format the values for these config options per the [PHP_CodeSniffer documentatio
           file_extensions: "php,inc,lib"
           standard: "PSR1,PSR2"
           ignore_warnings: true
+          encoding: utf-8
     ratings:
       paths:
       - "**.php"
