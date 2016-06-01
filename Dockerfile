@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:3.3
 
 WORKDIR /usr/src/app
 COPY composer.json /usr/src/app/
