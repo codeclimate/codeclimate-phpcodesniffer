@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3db621d30baff45a220fd5833c176980",
-    "content-hash": "bc862b5962296c0df3108a6dfff8d6f8",
+    "hash": "bd273138a44ef8cde48cc1e86aeb8139",
+    "content-hash": "cf119afb342743ce8586826929c76acc",
     "packages": [
         {
             "name": "barracudanetworks/forkdaemon-php",
@@ -98,6 +98,41 @@
                 "utils"
             ],
             "time": "2015-09-03 06:50:48"
+        },
+        {
+            "name": "drupal/coder",
+            "version": "8.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/klausi/coder.git",
+                "reference": "9ced5f2ad0e77534f6d53c8db43e6c6c3fe1b482"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/klausi/coder/zipball/9ced5f2ad0e77534f6d53c8db43e6c6c3fe1b482",
+                "reference": "9ced5f2ad0e77534f6d53c8db43e6c6c3fe1b482",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0",
+                "squizlabs/php_codesniffer": ">=2.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=3.7 <5.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Coder is a library to review Drupal code.",
+            "homepage": "https://drupal.org/project/coder",
+            "keywords": [
+                "code review",
+                "phpcs",
+                "standards"
+            ],
+            "time": "2015-11-26 09:21:56"
         },
         {
             "name": "squizlabs/php_codesniffer",

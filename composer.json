@@ -2,6 +2,7 @@
     "require": {
         "squizlabs/php_codesniffer": "^2.5",
         "barracudanetworks/forkdaemon-php": "1.0.*",
-        "danielstjules/stringy": "~2.0"
+        "danielstjules/stringy": "~2.0",
+        "drupal/coder": "^8.2"
     }
 }

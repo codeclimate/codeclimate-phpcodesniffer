@@ -15,7 +15,7 @@ PHP_CodeSniffer helps you detect violations of a defined coding standard.
 Format the values for these config options per the [PHP_CodeSniffer documentation](https://github.com/squizlabs/PHP_CodeSniffer).
 
 * file_extensions - This is where you can configure the file extensions for the files that you want PHP_CodeSniffer to analyze.
-* standard - This is the list of standards that you want PHP_CodeSniffer to use while analyzing your files.
+* standard - This is the list of standards that you want PHP_CodeSniffer to use while analyzing your files. The [Drupal Coding Standards](https://github.com/klausi/coder) are supported.
 * ignore_warnings - You can hide warnings, and only report errors with this option.
 * encoding - By default, PHPCS uses ISO-8859-1. Use this to change it to your encoding, e.g. UTF-8.
 
