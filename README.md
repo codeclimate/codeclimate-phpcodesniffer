@@ -15,7 +15,7 @@ PHP_CodeSniffer helps you detect violations of a defined coding standard.
 Format the values for these config options per the [PHP_CodeSniffer documentation](https://github.com/squizlabs/PHP_CodeSniffer).
 
 * file_extensions - This is where you can configure the file extensions for the files that you want PHP_CodeSniffer to analyze.
-* standard - This is the list of standards that you want PHP_CodeSniffer to use while analyzing your files. The [Drupal Coding Standards](https://github.com/klausi/coder) are supported.
+* standard - This is the comma delimited list of standards that you want PHP_CodeSniffer to use while analyzing your files.
 * ignore_warnings - You can hide warnings, and only report errors with this option.
 * encoding - By default, PHPCS uses ISO-8859-1. Use this to change it to your encoding, e.g. UTF-8.
 
@@ -34,6 +34,25 @@ Format the values for these config options per the [PHP_CodeSniffer documentatio
     ratings:
       paths:
       - "**.php"
+
+### Supported Coding Standards
+
+In addition to standards provided by [default](https://github.com/squizlabs/PHP_CodeSniffer/wiki/Usage#printing-a-list-of-installed-coding-standards) with PHP_CodeSniffer, the [Drupal](https://github.com/klausi/coder) and [WordPress](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards) coding standards are supported. Here is the full list:
+
+* Drupal
+* DrupalPractice
+* MySource
+* PEAR
+* PHPCS
+* PSR1
+* PSR2
+* Squiz
+* WordPress
+* WordPress-Core
+* WordPress-Docs
+* WordPress-Extra
+* WordPress-VIP
+* Zend
 
 ### Need help?
 
