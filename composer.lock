@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0d52d68bce6eafaf8bbc8c3aa181b630",
-    "content-hash": "da693e6afe8a6f3d4ce14606060a2a3f",
+    "hash": "85455e4210b80afc53aeff11c9d785f8",
+    "content-hash": "0398bece994b8d39044eec2f337489a8",
     "packages": [
         {
             "name": "barracudanetworks/forkdaemon-php",
-            "version": "v1.0.6",
+            "version": "v1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barracudanetworks/forkdaemon-php.git",
-                "reference": "1251138c17fe0fc76e87a991a3dbf2de022589db"
+                "reference": "9f9402909a4bd1ac98e5aacb6f15f19056f591f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barracudanetworks/forkdaemon-php/zipball/1251138c17fe0fc76e87a991a3dbf2de022589db",
-                "reference": "1251138c17fe0fc76e87a991a3dbf2de022589db",
+                "url": "https://api.github.com/repos/barracudanetworks/forkdaemon-php/zipball/9f9402909a4bd1ac98e5aacb6f15f19056f591f6",
+                "reference": "9f9402909a4bd1ac98e5aacb6f15f19056f591f6",
                 "shasum": ""
             },
             "require": {
@@ -41,25 +41,25 @@
                 "forking",
                 "php"
             ],
-            "time": "2015-11-11 16:17:56"
+            "time": "2016-01-12 19:40:56"
         },
         {
             "name": "danielstjules/stringy",
-            "version": "2.1.0",
+            "version": "2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/danielstjules/Stringy.git",
-                "reference": "efb10020f6f0274bd3c43a1549f37535e0a9d1cc"
+                "reference": "4e214a5195fae3fb558e81b1c6010678f7600643"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/danielstjules/Stringy/zipball/efb10020f6f0274bd3c43a1549f37535e0a9d1cc",
-                "reference": "efb10020f6f0274bd3c43a1549f37535e0a9d1cc",
+                "url": "https://api.github.com/repos/danielstjules/Stringy/zipball/4e214a5195fae3fb558e81b1c6010678f7600643",
+                "reference": "4e214a5195fae3fb558e81b1c6010678f7600643",
                 "shasum": ""
             },
             "require": {
-                "ext-mbstring": "*",
-                "php": ">=5.3.0"
+                "php": ">=5.3.0",
+                "symfony/polyfill-mbstring": "~1.1"
             },
             "require-dev": {
                 "phpunit/phpunit": "~4.0"
@@ -97,28 +97,29 @@
                 "utility",
                 "utils"
             ],
-            "time": "2015-09-03 06:50:48"
+            "time": "2016-05-02 15:18:10"
         },
         {
             "name": "drupal/coder",
-            "version": "8.2.5",
+            "version": "8.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/klausi/coder.git",
-                "reference": "9ced5f2ad0e77534f6d53c8db43e6c6c3fe1b482"
+                "reference": "a5b5f6b5769393a016da0d106a3b33f932c73331"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/klausi/coder/zipball/9ced5f2ad0e77534f6d53c8db43e6c6c3fe1b482",
-                "reference": "9ced5f2ad0e77534f6d53c8db43e6c6c3fe1b482",
+                "url": "https://api.github.com/repos/klausi/coder/zipball/a5b5f6b5769393a016da0d106a3b33f932c73331",
+                "reference": "a5b5f6b5769393a016da0d106a3b33f932c73331",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.2.0",
-                "squizlabs/php_codesniffer": ">=2.4.0"
+                "php": ">=5.4.0",
+                "squizlabs/php_codesniffer": ">=2.5.1",
+                "symfony/yaml": ">=2.0.0"
             },
             "require-dev": {
-                "phpunit/phpunit": ">=3.7 <5.0"
+                "phpunit/phpunit": ">=3.7"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -126,29 +127,30 @@
                 "GPL-2.0+"
             ],
             "description": "Coder is a library to review Drupal code.",
-            "homepage": "https://drupal.org/project/coder",
+            "homepage": "https://www.drupal.org/project/coder",
             "keywords": [
                 "code review",
                 "phpcs",
                 "standards"
             ],
-            "time": "2015-11-26 09:21:56"
+            "time": "2016-03-27 09:53:21"
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "2.5.0",
+            "version": "2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "e4fb41d5d0387d556e2c25534d630b3cce90ea67"
+                "reference": "fb72ed32f8418db5e7770be1653e62e0d6f5dd3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/e4fb41d5d0387d556e2c25534d630b3cce90ea67",
-                "reference": "e4fb41d5d0387d556e2c25534d630b3cce90ea67",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/fb72ed32f8418db5e7770be1653e62e0d6f5dd3d",
+                "reference": "fb72ed32f8418db5e7770be1653e62e0d6f5dd3d",
                 "shasum": ""
             },
             "require": {
+                "ext-simplexml": "*",
                 "ext-tokenizer": "*",
                 "ext-xmlwriter": "*",
                 "php": ">=5.1.2"
@@ -163,7 +165,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "2.x-dev"
                 }
             },
             "autoload": {
@@ -209,7 +211,115 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2015-12-11 00:12:46"
+            "time": "2016-05-30 22:24:32"
+        },
+        {
+            "name": "symfony/polyfill-mbstring",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-mbstring.git",
+                "reference": "dff51f72b0706335131b00a7f49606168c582594"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/dff51f72b0706335131b00a7f49606168c582594",
+                "reference": "dff51f72b0706335131b00a7f49606168c582594",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-mbstring": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for the Mbstring extension",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "mbstring",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "time": "2016-05-18 14:26:46"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "v3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "eca51b7b65eb9be6af88ad7cc91685f1556f5c9a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/eca51b7b65eb9be6af88ad7cc91685f1556f5c9a",
+                "reference": "eca51b7b65eb9be6af88ad7cc91685f1556f5c9a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "https://symfony.com",
+            "time": "2016-05-26 21:46:24"
         },
         {
             "name": "wp-coding-standards/wpcs",
