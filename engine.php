@@ -29,12 +29,14 @@ $server->process_work(true);
 
 // Process results
 
+$results = $server->get_all_results();
+
 // If there is no output from the runner, an exception must have occurred
-if (count($server->get_all_results()) == 0) {
+if (count($results) == 0) {
     exit(1);
 }
 
-foreach ($server->get_all_results() as $result_file) {
+foreach ($results as $result_file) {
     $phpcs_output = json_decode(file_get_contents($result_file), true);
     unlink($result_file);
 
