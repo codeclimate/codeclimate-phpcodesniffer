@@ -79,45 +79,50 @@ class Runner
 
     public function run($files)
     {
-        $resultFile = tempnam(sys_get_temp_dir(), 'phpcodesniffer');
+        try {
+            $resultFile = tempnam(sys_get_temp_dir(), 'phpcodesniffer');
 
-        $extra_config_options = array('--report=json', '--report-file=' . $resultFile);
+            $extra_config_options = array('--report=json', '--report-file=' . $resultFile);
 
-        if (isset($this->config['config']['standard'])) {
-            $extra_config_options[] = '--standard=' . $this->config['config']['standard'];
-        } else {
-            $extra_config_options[] = '--standard=PSR1,PSR2';
+            if (isset($this->config['config']['standard'])) {
+                $extra_config_options[] = '--standard=' . $this->config['config']['standard'];
+            } else {
+                $extra_config_options[] = '--standard=PSR1,PSR2';
+            }
+
+            if (isset($this->config['config']['ignore_warnings'])) {
+                $extra_config_options[] = '-n';
+            }
+
+            if (isset($this->config['config']['encoding'])) {
+                $extra_config_options[] = '--encoding=' . $this->config['config']['encoding'];
+            }
+
+            foreach ($files as $file) {
+                $extra_config_options[] = $file;
+            }
+
+            // prevent any stdout leakage
+            ob_start();
+
+            // setup the code sniffer
+            $cli = new PHP_CodeSniffer_CLI();
+            $cli->setCommandLineValues($extra_config_options);
+
+            // start the code sniffing
+            PHP_CodeSniffer_Reporting::startTiming();
+            $cli->checkRequirements();
+            $cli->process();
+
+            // clean up the output buffers (might be more that one)
+            while (ob_get_level()) {
+                ob_end_clean();
+            }
+
+            return $resultFile;
+        } catch (Exception $e) {
+            error_log("Exception: " . $e->getMessage() . " in " . $e->getFile() . "\n" . $e->getTraceAsString());
+            return false;
         }
-
-        if (isset($this->config['config']['ignore_warnings'])) {
-            $extra_config_options[] = '-n';
-        }
-
-        if (isset($this->config['config']['encoding'])) {
-            $extra_config_options[] = '--encoding=' . $this->config['config']['encoding'];
-        }
-
-        foreach ($files as $file) {
-            $extra_config_options[] = $file;
-        }
-
-        // prevent any stdout leakage
-        ob_start();
-
-        // setup the code sniffer
-        $cli = new PHP_CodeSniffer_CLI();
-        $cli->setCommandLineValues($extra_config_options);
-
-        // start the code sniffing
-        PHP_CodeSniffer_Reporting::startTiming();
-        $cli->checkRequirements();
-        $cli->process();
-
-        // clean up the output buffers (might be more that one)
-        while (ob_get_level()) {
-            ob_end_clean();
-        }
-
-        return $resultFile;
     }
 }
