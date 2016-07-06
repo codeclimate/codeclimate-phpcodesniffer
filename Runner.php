@@ -122,7 +122,7 @@ class Runner
             return $resultFile;
         } catch (Exception $e) {
             error_log("Exception: " . $e->getMessage() . " in " . $e->getFile() . "\n" . $e->getTraceAsString());
-            return false;
+            return $e;
         }
     }
 }
