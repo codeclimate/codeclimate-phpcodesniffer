@@ -59,7 +59,7 @@ foreach ($results as $result_file) {
                     );
                     file_put_contents(
                         'php://stdout',
-                        json_encode($cleaned_single_issue, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE)
+                        json_encode($cleaned_single_issue, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                     );
                     file_put_contents('php://stdout', chr(0));
                 }
