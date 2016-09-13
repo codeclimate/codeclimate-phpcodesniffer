@@ -172,10 +172,9 @@ class Sniffs
     public static function pointsFor($issue)
     {
         $sniffName = $issue["source"];
-        $points = self::$sniffs[$sniffName];
 
-        if ($points) {
-            return $points;
+        if (array_key_exists($sniffName, self::$sniffs)) {
+            return self::$sniffs[$sniffName];
         } else {
             return $issue["severity"] * self::DEFAULT_POINTS;
         }
