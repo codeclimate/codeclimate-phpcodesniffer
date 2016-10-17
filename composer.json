@@ -4,6 +4,6 @@
         "barracudanetworks/forkdaemon-php": "^1.0",
         "danielstjules/stringy": "^2.3",
         "drupal/coder": "^8.2",
-        "wp-coding-standards/wpcs": "^0.9"
+        "wp-coding-standards/wpcs": "^0.10.0"
     }
 }
