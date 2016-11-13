@@ -41,7 +41,7 @@ a relative path to a custom phpcs ruleset.xml file.
 
 ### Supported Coding Standards
 
-In addition to standards provided by [default](https://github.com/squizlabs/PHP_CodeSniffer/wiki/Usage#printing-a-list-of-installed-coding-standards) with PHP_CodeSniffer, the [Drupal](https://github.com/klausi/coder) and [WordPress](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards) coding standards are supported. Here is the full list:
+In addition to standards provided by [default](https://github.com/squizlabs/PHP_CodeSniffer/wiki/Usage#printing-a-list-of-installed-coding-standards) with PHP_CodeSniffer, the [Drupal](https://github.com/klausi/coder), [WordPress](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards), and [Yii2](https://github.com/yiisoft/yii2-coding-standards) coding standards are supported. Here is the full list:
 
 * Drupal
 * DrupalPractice
@@ -56,6 +56,7 @@ In addition to standards provided by [default](https://github.com/squizlabs/PHP_
 * WordPress-Docs
 * WordPress-Extra
 * WordPress-VIP
+* Yii2
 * Zend
 
 ### Need help?
