@@ -1,19 +1,36 @@
-FROM alpine:3.3
+FROM alpine:edge
 
 WORKDIR /usr/src/app
-COPY composer.json /usr/src/app/
-COPY composer.lock /usr/src/app/
 
-RUN apk --update add git php-common php-ctype php-iconv php-json php-phar php-pcntl php-openssl php-sockets curl && \
-    curl -sS https://getcomposer.org/installer | php && \
-    /usr/src/app/composer.phar install && \
-    apk del build-base && rm -fr /usr/share/ri
-
-RUN /usr/src/app/vendor/bin/phpcs --config-set installed_paths "/usr/src/app/vendor/drupal/coder/coder_sniffer,/usr/src/app/vendor/wp-coding-standards/wpcs,/usr/src/app/vendor/yiisoft/yii2-coding-standards"
+RUN apk --update add \
+      php7-common \
+      php7-ctype \
+      php7-iconv \
+      php7-json \
+      php7-mbstring \
+      php7-openssl \
+      php7-pcntl \
+      php7-phar \
+      php7-sockets \
+      curl && \
+    rm /var/cache/apk/* && \
+    ln -s /usr/bin/php7 /usr/bin/php
 
 RUN adduser -u 9000 -D app
-USER app
 
 COPY . /usr/src/app
+RUN chown -R app:app /usr/src/app
+
+USER app
+
+RUN curl -sS https://getcomposer.org/installer | php && \
+    ./composer.phar install && \
+    rm /usr/src/app/composer.phar
+
+RUN /usr/src/app/vendor/bin/phpcs --config-set \
+    installed_paths \
+    "/usr/src/app/vendor/drupal/coder/coder_sniffer,/usr/src/app/vendor/wp-coding-standards/wpcs,/usr/src/app/vendor/yiisoft/yii2-coding-standards"
+
+VOLUME /code
 
 CMD ["/usr/src/app/bin/codeclimate-phpcodesniffer"]
