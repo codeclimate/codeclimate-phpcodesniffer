@@ -19,12 +19,7 @@ class Runner
     {
         chdir("/code");
 
-        if(isset($this->config['include_paths'])) {
-            $this->queueWithIncludePaths();
-        } else {
-            $this->queuePaths($dir, $prefix, $this->config['exclude_paths']);
-        }
-
+        $this->queueWithIncludePaths();
         $this->server->process_work(false);
     }
 
@@ -40,17 +35,13 @@ class Runner
         }
     }
 
-    public function queuePaths($dir, $prefix = '', $exclusions = []) {
+    public function queuePaths($dir, $prefix = '') {
         $dir = rtrim($dir, '\\/');
 
         foreach (scandir($dir) as $f) {
-            if (in_array("$prefix$f", $exclusions)) {
-                continue;
-            }
-
             if ($f !== '.' and $f !== '..') {
                 if (is_dir("$dir/$f")) {
-                    $this->queuePaths("$dir/$f", "$prefix$f/", $exclusions);
+                    $this->queuePaths("$dir/$f", "$prefix$f/");
                 } else {
                     $this->filterByExtension($f, $prefix);
                 }
