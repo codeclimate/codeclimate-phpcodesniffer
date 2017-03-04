@@ -1,9 +1,19 @@
 {
     "repositories": {
         "magento": {
-            "type": "composer",
-            "url": "https://repo.magento.com/"
-        }
+            "type": "package",
+            "package": {
+                "name": "magento/marketplace-eqp",
+                "version": "1.0.4",
+                "description": "A set of PHP_CodeSniffer rules and sniffs.",
+                "license": "MIT",
+                "source": {
+                    "url": "https://github.com/magento/marketplace-eqp.git",
+                    "type": "git",
+                    "reference": "1.0.4"
+                }
+            }
+         }
     },
     "require": {
         "squizlabs/php_codesniffer": "^2.6",
