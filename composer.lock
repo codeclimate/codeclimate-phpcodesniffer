@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4aba5a45a8354e20d30323612e696f33",
+    "content-hash": "ed12ba1faffc7b53cdcac45279c8b51b",
     "packages": [
         {
             "name": "barracudanetworks/forkdaemon-php",
@@ -138,10 +138,11 @@
         {
             "name": "magento/marketplace-eqp",
             "version": "1.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/magento/marketplace-eqp.git",
-                "reference": "1.0.4"
+            "dist": {
+                "type": "gzip",
+                "url": "https://github.com/magento/marketplace-eqp/archive/1.0.4.tar.gz",
+                "reference": "1.0.4",
+                "shasum": null
             },
             "type": "library",
             "license": [
