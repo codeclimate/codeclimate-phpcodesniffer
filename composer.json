@@ -21,6 +21,7 @@
         "danielstjules/stringy": "^2.3",
         "drupal/coder": "^8.2",
         "wp-coding-standards/wpcs": "^0.10.0",
-        "yiisoft/yii2-coding-standards": "^2.0"
+        "yiisoft/yii2-coding-standards": "^2.0",
+        "magento/marketplace-eqp": "^1.0"
     }
 }
