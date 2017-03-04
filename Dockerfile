@@ -29,7 +29,7 @@ RUN curl -sS https://getcomposer.org/installer | php && \
 
 RUN /usr/src/app/vendor/bin/phpcs --config-set \
     installed_paths \
-    "/usr/src/app/vendor/drupal/coder/coder_sniffer,/usr/src/app/vendor/wp-coding-standards/wpcs,/usr/src/app/vendor/yiisoft/yii2-coding-standards"
+    "/usr/src/app/vendor/drupal/coder/coder_sniffer,/usr/src/app/vendor/wp-coding-standards/wpcs,/usr/src/app/vendor/yiisoft/yii2-coding-standards,/usr/src/app/vendor/magento/marketplace-eqp"
 
 VOLUME /code
 
