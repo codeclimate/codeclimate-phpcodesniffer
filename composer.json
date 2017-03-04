@@ -9,7 +9,7 @@
                 "license": "MIT",
                 "source": {
                     "url": "https://github.com/magento/marketplace-eqp.git",
-                    "type": "git",
+                    "type": "vcs",
                     "reference": "1.0.4"
                 }
             }
