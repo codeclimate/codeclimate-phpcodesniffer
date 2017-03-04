@@ -1,4 +1,10 @@
 {
+    "repositories": {
+        "magento": {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    },
     "require": {
         "squizlabs/php_codesniffer": "^2.6",
         "barracudanetworks/forkdaemon-php": "^1.0",
