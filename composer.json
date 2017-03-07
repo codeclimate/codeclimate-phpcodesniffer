@@ -7,9 +7,9 @@
                 "version": "1.0.4",
                 "description": "A set of PHP_CodeSniffer rules and sniffs.",
                 "license": "MIT",
-                "dist": {
-                    "url": "https://github.com/magento/marketplace-eqp/archive/1.0.4.tar.gz",
-                    "type": "gzip",
+                "source": {
+                    "url": "https://github.com/magento/marketplace-eqp.git",
+                    "type": "git",
                     "reference": "1.0.4"
                 }
             }
