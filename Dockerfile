@@ -13,6 +13,7 @@ RUN apk --update add \
       php7-phar \
       php7-sockets \
       curl && \
+      git && \
     rm /var/cache/apk/* && \
     ln -s /usr/bin/php7 /usr/bin/php
 
