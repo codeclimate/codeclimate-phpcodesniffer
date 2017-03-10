@@ -14,7 +14,6 @@ RUN apk --update add \
       php7-sockets \
       curl \
       git && \
-      openssh && \
     rm /var/cache/apk/* && \
     ln -s /usr/bin/php7 /usr/bin/php
 
