@@ -16,7 +16,7 @@
          }
     },
     "require": {
-        "squizlabs/php_codesniffer": "^2.6",
+        "squizlabs/php_codesniffer": "^2.8.1",
         "barracudanetworks/forkdaemon-php": "^1.0",
         "danielstjules/stringy": "^2.3",
         "drupal/coder": "^8.2",
