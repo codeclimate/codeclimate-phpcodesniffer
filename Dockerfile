@@ -3,6 +3,7 @@ FROM alpine:edge
 WORKDIR /usr/src/app
 
 RUN apk --update add \
+      php7 \
       php7-common \
       php7-ctype \
       php7-iconv \
