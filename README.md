@@ -12,7 +12,7 @@ PHP_CodeSniffer helps you detect violations of a defined coding standard.
 2. Run `codeclimate engines:enable phpcodesniffer`. This command both installs the engine and enables it in your `.codeclimate.yml` file.
 3. You're ready to analyze! Browse into your project's folder and run `codeclimate analyze`.
 
-###Config Options
+### Config Options
 
 Format the values for these config options per the [PHP_CodeSniffer documentation](https://github.com/squizlabs/PHP_CodeSniffer).
 
@@ -23,7 +23,7 @@ a relative path to a custom phpcs ruleset.xml file.
 * ignore_warnings - You can hide warnings, and only report errors with this option.
 * encoding - By default, PHPCS uses ISO-8859-1. Use this to change it to your encoding, e.g. UTF-8.
 
-###Sample Config
+### Sample Config
 
     exclude_paths:
      - "/examples/**/*"
