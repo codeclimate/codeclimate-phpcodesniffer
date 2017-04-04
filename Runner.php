@@ -1,5 +1,6 @@
 <?php
 
+use Exception;
 use Stringy\Stringy as S;
 
 class Runner
