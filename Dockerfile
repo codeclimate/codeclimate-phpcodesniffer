@@ -12,11 +12,15 @@ RUN apk --update add \
       php7-openssl \
       php7-pcntl \
       php7-phar \
+      php7-simplexml \
       php7-sockets \
+      php7-tokenizer \
+      php7-xml \
+      php7-xmlwriter \
       curl \
       git && \
     rm /var/cache/apk/* && \
-    ln -s /usr/bin/php7 /usr/bin/php
+    ln -sf /usr/bin/php7 /usr/bin/php
 
 RUN adduser -u 9000 -D app
 

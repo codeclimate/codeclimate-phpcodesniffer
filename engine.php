@@ -32,7 +32,7 @@ $server->process_work(true);
 $results = $server->get_all_results();
 
 foreach ($results as $result_file) {
-    if (is_a($result_file, "Exception")) {
+    if (is_a($result_file, "Throwable")) {
         exit(1);
     }
 
