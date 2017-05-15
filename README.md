@@ -1,4 +1,6 @@
-# Code Climate PHP_CodeSniffer Engine
+# Code Climate PHP_CodeSniffer Engine<br>
+
+[![Code Climate](https://codeclimate.com/repos/558b317f69568073bf0021e5/badges/7c2a59b5bee6d2425207/gpa.svg)](https://codeclimate.com/repos/558b317f69568073bf0021e5/feed)
 
 [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate-phpcodesniffer/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate-phpcodesniffer)
 
