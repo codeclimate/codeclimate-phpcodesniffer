@@ -12,11 +12,15 @@ RUN apk --update add \
       php7-openssl \
       php7-pcntl \
       php7-phar \
+      php7-simplexml \
       php7-sockets \
+      php7-tokenizer \
+      php7-xml \
+      php7-xmlwriter \
       curl \
       git && \
     rm /var/cache/apk/* && \
-    ln -s /usr/bin/php7 /usr/bin/php
+    ln -sf /usr/bin/php7 /usr/bin/php
 
 RUN adduser -u 9000 -D app
 
@@ -31,7 +35,7 @@ RUN curl -sS https://getcomposer.org/installer | php && \
 
 RUN /usr/src/app/vendor/bin/phpcs --config-set \
     installed_paths \
-    "/usr/src/app/vendor/drupal/coder/coder_sniffer,/usr/src/app/vendor/wp-coding-standards/wpcs,/usr/src/app/vendor/yiisoft/yii2-coding-standards,/usr/src/app/vendor/magento/marketplace-eqp"
+    "/usr/src/app/vendor/drupal/coder/coder_sniffer,/usr/src/app/vendor/escapestudios/symfony2-coding-standard,/usr/src/app/vendor/wp-coding-standards/wpcs,/usr/src/app/vendor/yiisoft/yii2-coding-standards,/usr/src/app/vendor/magento/marketplace-eqp"
 
 VOLUME /code
 
