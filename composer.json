@@ -16,12 +16,12 @@
          }
     },
     "require": {
-        "squizlabs/php_codesniffer": "^2.8.1",
+        "squizlabs/php_codesniffer": "^2.9.1",
         "barracudanetworks/forkdaemon-php": "^1.0",
         "danielstjules/stringy": "^2.3",
         "drupal/coder": "^8.2",
         "escapestudios/symfony2-coding-standard": "^2.10",
-        "wp-coding-standards/wpcs": "^0.11.0",
+        "wp-coding-standards/wpcs": "^0.12.0",
         "yiisoft/yii2-coding-standards": "^2.0",
         "magento/marketplace-eqp": "^1.0"
     }
