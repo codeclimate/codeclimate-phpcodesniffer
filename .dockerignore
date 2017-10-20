@@ -1,4 +1,12 @@
 .git
 .gitignore
 Dockerfile
-README.md
+*.md
+.dockerignore
+.codeclimate.yml
+Makefile
+LICENSE
+composer.phar
+vendor
+composer-setup.php
+circle.yml
