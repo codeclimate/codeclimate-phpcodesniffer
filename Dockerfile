@@ -1,8 +1,11 @@
 FROM alpine:edge
 
+RUN adduser -u 9000 -D app
+
 WORKDIR /usr/src/app
 
-RUN apk --update add \
+RUN apk add --no-cache \
+      ca-certificates  \
       php7 \
       php7-common \
       php7-ctype \
@@ -17,25 +20,31 @@ RUN apk --update add \
       php7-tokenizer \
       php7-xml \
       php7-xmlwriter \
-      curl \
-      git && \
-    rm /var/cache/apk/* && \
-    ln -sf /usr/bin/php7 /usr/bin/php
+      php7-zlib && \
+    EXPECTED_SIGNATURE=$(php -r "echo file_get_contents('https://composer.github.io/installer.sig');") && \
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');") && \
+    [ "$EXPECTED_SIGNATURE" = "$ACTUAL_SIGNATURE" ] || (echo "Invalid Composer installer signature"; exit 1) && \
+    php composer-setup.php --quiet && \
+    mv composer.phar /usr/local/bin/composer && \
+    rm -r composer-setup.php /var/cache/misc/* ~/.composer
 
-RUN adduser -u 9000 -D app
+COPY composer.json composer.lock ./
 
-COPY . /usr/src/app
-RUN chown -R app:app /usr/src/app
+RUN apk add --no-cache git && \
+    composer install --no-dev && \
+    apk del --purge git && \
+    vendor/bin/phpcs --config-set \
+      installed_paths \
+      "/usr/src/app/vendor/drupal/coder/coder_sniffer,/usr/src/app/vendor/escapestudios/symfony2-coding-standard,/usr/src/app/vendor/wp-coding-standards/wpcs,/usr/src/app/vendor/yiisoft/yii2-coding-standards,/usr/src/app/vendor/magento/marketplace-eqp" && \
+    chown -R app:app . && \
+    rm -r ~/.composer /var/cache/misc/*
+
+COPY . ./
+
+RUN find -not \( -user app -and -group app \) -exec chown -R app:app {} \;
 
 USER app
-
-RUN curl -sS https://getcomposer.org/installer | php && \
-    ./composer.phar install && \
-    rm /usr/src/app/composer.phar
-
-RUN /usr/src/app/vendor/bin/phpcs --config-set \
-    installed_paths \
-    "/usr/src/app/vendor/drupal/coder/coder_sniffer,/usr/src/app/vendor/escapestudios/symfony2-coding-standard,/usr/src/app/vendor/wp-coding-standards/wpcs,/usr/src/app/vendor/yiisoft/yii2-coding-standards,/usr/src/app/vendor/magento/marketplace-eqp"
 
 VOLUME /code
 
