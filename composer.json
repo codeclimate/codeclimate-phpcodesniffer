@@ -4,13 +4,13 @@
             "type": "package",
             "package": {
                 "name": "magento/marketplace-eqp",
-                "version": "1.0.4",
+                "version": "1.0.5",
                 "description": "A set of PHP_CodeSniffer rules and sniffs.",
                 "license": "MIT",
                 "source": {
                     "url": "https://github.com/magento/marketplace-eqp.git",
                     "type": "git",
-                    "reference": "1.0.4"
+                    "reference": "1.0.5"
                 }
             }
          }
