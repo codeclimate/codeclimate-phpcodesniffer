@@ -27,7 +27,7 @@ RUN apk add --no-cache \
     [ "$EXPECTED_SIGNATURE" = "$ACTUAL_SIGNATURE" ] || (echo "Invalid Composer installer signature"; exit 1) && \
     php composer-setup.php --quiet && \
     mv composer.phar /usr/local/bin/composer && \
-    rm -r composer-setup.php /var/cache/misc/* ~/.composer
+    rm -r composer-setup.php ~/.composer
 
 COPY composer.json composer.lock ./
 
@@ -38,7 +38,7 @@ RUN apk add --no-cache git && \
       installed_paths \
       "/usr/src/app/vendor/drupal/coder/coder_sniffer,/usr/src/app/vendor/escapestudios/symfony2-coding-standard,/usr/src/app/vendor/wp-coding-standards/wpcs,/usr/src/app/vendor/yiisoft/yii2-coding-standards,/usr/src/app/vendor/magento/marketplace-eqp" && \
     chown -R app:app . && \
-    rm -r ~/.composer /var/cache/misc/*
+    rm -r ~/.composer
 
 COPY . ./
 
