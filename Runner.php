@@ -90,7 +90,7 @@ class Runner
                 $extra_config_options[] = '--standard=PSR1,PSR2';
             }
 
-            if (isset($this->config['config']['ignore_warnings'])) {
+            if (isset($this->config['config']['ignore_warnings']) && $this->config['config']['ignore_warnings']) {
                 $extra_config_options[] = '-n';
             }
 
