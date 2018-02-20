@@ -21,7 +21,7 @@
         "danielstjules/stringy": "^2.3",
         "drupal/coder": "^8.2",
         "escapestudios/symfony2-coding-standard": "^2.10",
-        "wp-coding-standards/wpcs": "^0.14.0",
+        "wp-coding-standards/wpcs": "^0.14.1",
         "yiisoft/yii2-coding-standards": "^2.0",
         "magento/marketplace-eqp": "^1.0"
     }
