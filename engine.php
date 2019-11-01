@@ -1,7 +1,7 @@
 <?php
 
-// Hooking into Composer's autoloader
-require_once __DIR__.'/vendor/autoload.php';
+// Hooking into PHP_CodeSniffer's autoloader
+require_once __DIR__.'/vendor/squizlabs/php_codesniffer/autoload.php';
 require_once "Runner.php";
 require_once "Sniffs.php";
 
