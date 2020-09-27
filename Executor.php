@@ -6,6 +6,7 @@ use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Reporter;
 use PHP_CodeSniffer\Files\DummyFile;
 use PHP_CodeSniffer\Util\Timing;
+
 require_once __DIR__.'/vendor/squizlabs/php_codesniffer/autoload.php';
 
 class Executor
@@ -25,7 +26,7 @@ class Executor
     {
         chdir("/code");
 
-        if(isset($this->config['include_paths'])) {
+        if (isset($this->config['include_paths'])) {
             $this->queueWithIncludePaths();
         } else {
             $this->queuePaths($dir, $prefix, $this->config['exclude_paths']);
@@ -34,7 +35,8 @@ class Executor
         $this->server->process_work(false);
     }
 
-    public function queueWithIncludePaths() {
+    public function queueWithIncludePaths()
+    {
         foreach ($this->config['include_paths'] as $f) {
             if ($f !== '.' and $f !== '..') {
                 if (is_dir($f)) {
@@ -46,7 +48,8 @@ class Executor
         }
     }
 
-    public function queuePaths($dir, $prefix = '', $exclusions = []) {
+    public function queuePaths($dir, $prefix = '', $exclusions = [])
+    {
         $dir = rtrim($dir, '\\/');
 
         foreach (scandir($dir) as $f) {
@@ -64,7 +67,8 @@ class Executor
         }
     }
 
-    public function filterByExtension($f, $prefix = '') {
+    public function filterByExtension($f, $prefix = '')
+    {
         foreach ($this->fileExtensions() as $file_extension) {
             if (S::create($f)->endsWith($file_extension)) {
                 $prefix = ltrim($prefix, "\\/");
@@ -73,7 +77,8 @@ class Executor
         }
     }
 
-    private function fileExtensions() {
+    private function fileExtensions()
+    {
         $extensions = $this->config['config']['file_extensions'];
 
         if (empty($extensions)) {
@@ -114,11 +119,11 @@ class Executor
 
             $runner->reporter = new Reporter($runner->config);
 
-            foreach ( $files as $file_path ) {
-                $file       = new DummyFile( file_get_contents( $file_path ), $runner->ruleset, $runner->config );
+            foreach ($files as $file_path) {
+                $file       = new DummyFile(file_get_contents($file_path), $runner->ruleset, $runner->config);
                 $file->path = $file_path;
     
-                $runner->processFile( $file );
+                $runner->processFile($file);
             }
 
             ob_start();
