@@ -1,5 +1,9 @@
 <?php
 
+use PHP_CodeSniffer\Files\FileList;
+use PHP_CodeSniffer\Reporter;
+use PHP_CodeSniffer\Util\Timing;
+use PHP_CodeSniffer\Config;
 use Stringy\Stringy as S;
 
 class Runner
@@ -82,7 +86,7 @@ class Runner
         try {
             $resultFile = tempnam(sys_get_temp_dir(), 'phpcodesniffer');
 
-            $extra_config_options = array('--report=json', '--report-file=' . $resultFile);
+            $extra_config_options = array('--report-json='.$resultFile);
 
             if (isset($this->config['config']['standard'])) {
                 $extra_config_options[] = '--standard=' . $this->config['config']['standard'];
@@ -106,13 +110,25 @@ class Runner
             ob_start();
 
             // setup the code sniffer
-            $cli = new PHP_CodeSniffer_CLI();
-            $cli->setCommandLineValues($extra_config_options);
+            $runner = new \PHP_CodeSniffer\Runner();
+            $runner->config = new Config($extra_config_options);
+            $runner->init();
+
+            // setup the code sniffer
+            $runner->reporter = new Reporter($runner->config);
 
             // start the code sniffing
-            PHP_CodeSniffer_Reporting::startTiming();
-            $cli->checkRequirements();
-            $cli->process();
+            Timing::startTiming();
+            $runner->checkRequirements();
+
+            $todo = new FileList($runner->config, $runner->ruleset);
+            foreach ($todo as $path => $file) {
+                if ($file->ignored === false) {
+                    $runner->processFile($file);
+                }
+            }
+
+            $runner->reporter->printReports();
 
             // clean up the output buffers (might be more that one)
             while (ob_get_level()) {

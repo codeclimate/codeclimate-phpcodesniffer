@@ -4,25 +4,27 @@
             "type": "package",
             "package": {
                 "name": "magento/marketplace-eqp",
-                "version": "1.0.5",
+                "version": "4.0.0",
                 "description": "A set of PHP_CodeSniffer rules and sniffs.",
                 "license": "MIT",
                 "source": {
                     "url": "https://github.com/magento/marketplace-eqp.git",
                     "type": "git",
-                    "reference": "1.0.5"
+                    "reference": "4.0.0"
                 }
             }
          }
     },
     "require": {
-        "squizlabs/php_codesniffer": "^2.9.1",
+        "squizlabs/php_codesniffer": "^3.5",
         "barracudanetworks/forkdaemon-php": "^1.0",
         "danielstjules/stringy": "^2.3",
-        "drupal/coder": "^8.2",
-        "escapestudios/symfony2-coding-standard": "^2.10",
-        "wp-coding-standards/wpcs": "^1.0.0",
+        "drupal/coder": "^8.3",
+        "escapestudios/symfony2-coding-standard": "^3.9",
+        "wp-coding-standards/wpcs": "^2.1",
         "yiisoft/yii2-coding-standards": "^2.0",
+        "magento/marketplace-eqp": "^4.0",
+        "magento/magento-coding-standard": "^4.0"
         "magento/marketplace-eqp": "^1.0",
         "pheromone/phpcs-security-audit": "^1.0"
     }
