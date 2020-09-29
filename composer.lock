@@ -233,6 +233,38 @@
             "description": "A set of PHP_CodeSniffer rules and sniffs."
         },
         {
+            "name": "pheromone/phpcs-security-audit",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FloeDesignTechnologies/phpcs-security-audit.git",
+                "reference": "7586825d6b12c9d305561de28d612c4831792e9b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FloeDesignTechnologies/phpcs-security-audit/zipball/7586825d6b12c9d305561de28d612c4831792e9b",
+                "reference": "7586825d6b12c9d305561de28d612c4831792e9b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "squizlabs/php_codesniffer": "~1.5.1 || >=2.3.3 <3.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Marcil",
+                    "homepage": "https://twitter.com/jonathanmarcil"
+                }
+            ],
+            "description": "phpcs-security-audit is a set of PHP_CodeSniffer rules that finds vulnerabilities and weaknesses related to security in PHP code",
+            "time": "2018-02-20T04:45:18+00:00"
+        },
+        {
             "name": "squizlabs/php_codesniffer",
             "version": "3.5.2",
             "source": {
@@ -580,5 +612,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
