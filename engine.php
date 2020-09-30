@@ -2,7 +2,7 @@
 
 // Hooking into PHP_CodeSniffer's autoloader
 require_once __DIR__.'/vendor/squizlabs/php_codesniffer/autoload.php';
-require_once "Runner.php";
+require_once "Executor.php";
 require_once "Sniffs.php";
 
 use Sniffs\Sniffs;
@@ -20,7 +20,7 @@ $server = new \fork_daemon();
 $server->max_children_set(3);
 $server->max_work_per_child_set(50);
 $server->store_result_set(true);
-$runner = new Runner($config, $server);
+$runner = new Executor($config, $server);
 $server->register_child_run(array($runner, "run"));
 
 $runner->queueDirectory("/code");
