@@ -1,12 +1,13 @@
 <?php
 
-use PHP_CodeSniffer\Files\FileList;
-use PHP_CodeSniffer\Reporter;
-use PHP_CodeSniffer\Util\Timing;
-use PHP_CodeSniffer\Config;
 use Stringy\Stringy as S;
+use PHP_CodeSniffer\Runner;
+use PHP_CodeSniffer\Config;
+use PHP_CodeSniffer\Reporter;
+use PHP_CodeSniffer\Files\DummyFile;
+use PHP_CodeSniffer\Util\Timing;
 
-class Runner
+class Executor
 {
     const DEFAULT_EXTENSIONS = array("php", "inc", "module");
 
@@ -23,7 +24,7 @@ class Runner
     {
         chdir("/code");
 
-        if(isset($this->config['include_paths'])) {
+        if (isset($this->config['include_paths'])) {
             $this->queueWithIncludePaths();
         } else {
             $this->queuePaths($dir, $prefix, $this->config['exclude_paths']);
@@ -32,7 +33,8 @@ class Runner
         $this->server->process_work(false);
     }
 
-    public function queueWithIncludePaths() {
+    public function queueWithIncludePaths()
+    {
         foreach ($this->config['include_paths'] as $f) {
             if ($f !== '.' and $f !== '..') {
                 if (is_dir($f)) {
@@ -44,7 +46,8 @@ class Runner
         }
     }
 
-    public function queuePaths($dir, $prefix = '', $exclusions = []) {
+    public function queuePaths($dir, $prefix = '', $exclusions = [])
+    {
         $dir = rtrim($dir, '\\/');
 
         foreach (scandir($dir) as $f) {
@@ -62,7 +65,8 @@ class Runner
         }
     }
 
-    public function filterByExtension($f, $prefix = '') {
+    public function filterByExtension($f, $prefix = '')
+    {
         foreach ($this->fileExtensions() as $file_extension) {
             if (S::create($f)->endsWith($file_extension)) {
                 $prefix = ltrim($prefix, "\\/");
@@ -71,7 +75,8 @@ class Runner
         }
     }
 
-    private function fileExtensions() {
+    private function fileExtensions()
+    {
         $extensions = $this->config['config']['file_extensions'];
 
         if (empty($extensions)) {
@@ -85,55 +90,44 @@ class Runner
     {
         try {
             $resultFile = tempnam(sys_get_temp_dir(), 'phpcodesniffer');
-
-            $extra_config_options = array('--report-json='.$resultFile);
-
-            if (isset($this->config['config']['standard'])) {
-                $extra_config_options[] = '--standard=' . $this->config['config']['standard'];
-            } else {
-                $extra_config_options[] = '--standard=PSR1,PSR2';
-            }
+            $config_args = array( '-s', '-p' );
 
             if (isset($this->config['config']['ignore_warnings']) && $this->config['config']['ignore_warnings']) {
-                $extra_config_options[] = '-n';
+                $config_args[] = '-n';
+            }
+
+            Timing::startTiming();
+
+            $runner = new Runner();
+            $runner->config = new Config($config_args);
+
+            if (isset($this->config['config']['standard'])) {
+                $runner->config->standards = explode(',', $this->config['config']['standard']);
+            } else {
+                $runner->config->standards = array('PSR1', 'PSR2');
             }
 
             if (isset($this->config['config']['encoding'])) {
-                $extra_config_options[] = '--encoding=' . $this->config['config']['encoding'];
+                $runner->config->encoding = $this->config['config']['encoding'];
             }
 
-            foreach ($files as $file) {
-                $extra_config_options[] = $file;
-            }
-
-            // prevent any stdout leakage
-            ob_start();
-
-            // setup the code sniffer
-            $runner = new \PHP_CodeSniffer\Runner();
-            $runner->config = new Config($extra_config_options);
+            $runner->config->reports = array( 'json' => null );
+            $runner->config->reportFile = $resultFile;
             $runner->init();
 
-            // setup the code sniffer
             $runner->reporter = new Reporter($runner->config);
 
-            // start the code sniffing
-            Timing::startTiming();
-            $runner->checkRequirements();
-
-            $todo = new FileList($runner->config, $runner->ruleset);
-            foreach ($todo as $path => $file) {
-                if ($file->ignored === false) {
-                    $runner->processFile($file);
-                }
+            foreach ($files as $file_path) {
+                $file       = new DummyFile(file_get_contents($file_path), $runner->ruleset, $runner->config);
+                $file->path = $file_path;
+    
+                $runner->processFile($file);
             }
+
+            ob_start();
 
             $runner->reporter->printReports();
-
-            // clean up the output buffers (might be more that one)
-            while (ob_get_level()) {
-                ob_end_clean();
-            }
+            $report = ob_get_clean();
 
             return $resultFile;
         } catch (\Throwable $e) {
