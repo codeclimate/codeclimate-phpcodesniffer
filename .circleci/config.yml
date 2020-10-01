@@ -34,6 +34,18 @@ jobs:
               us.gcr.io/code-climate/codeclimate-phpcodesniffer:b$CIRCLE_BUILD_NUM
             docker push us.gcr.io/code-climate/codeclimate-phpcodesniffer:b$CIRCLE_BUILD_NUM
 
+workflows:
+  version: 2
+  build_deploy:
+    jobs:
+      - build
+      - release_images:
+          requires:
+            - build
+          filters:
+            branches:
+              only: /master|channel\/[\w-]+/
+
 notify:
   webhooks:
     - url: https://cc-slack-proxy.herokuapp.com/circle
