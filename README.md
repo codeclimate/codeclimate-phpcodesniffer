@@ -61,6 +61,19 @@ In addition to standards provided by [default](https://github.com/squizlabs/PHP_
 * Yii2
 * Zend
 
+---
+
+* To use the PSR12 standard, you'll need to specify the `beta` channel in your .codeclimate.yml:
+
+```
+plugins: 
+  phpcodesniffer:
+    enabled: true
+    channel: beta
+    config:
+        standard: "PSR12"
+```
+
 ### Need help?
 
 For help with PHP_CodeSniffer, [check out their documentation](https://github.com/squizlabs/PHP_CodeSniffer).
