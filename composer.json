@@ -25,6 +25,11 @@
         "yiisoft/yii2-coding-standards": "^2.0",
         "magento/marketplace-eqp": "^4.0",
         "magento/magento-coding-standard": "^4.0",
-        "pheromone/phpcs-security-audit": "^1.0"
+        "pheromone/phpcs-security-audit": "^2.0.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }

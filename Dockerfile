@@ -20,6 +20,7 @@ RUN apk add --no-cache \
       php7-tokenizer \
       php7-xml \
       php7-xmlwriter \
+      php7-xmlreader \
       php7-zlib
 
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
@@ -30,9 +31,10 @@ RUN apk add --no-cache git && \
     apk del --purge git && \
     vendor/bin/phpcs --config-set \
       installed_paths \
-      "/usr/src/app/vendor/drupal/coder/coder_sniffer,/usr/src/app/vendor/escapestudios/symfony2-coding-standard,/usr/src/app/vendor/wp-coding-standards/wpcs,/usr/src/app/vendor/yiisoft/yii2-coding-standards,/usr/src/app/vendor/magento/marketplace-eqp,/usr/src/app/vendor/magento/magento-coding-standard,/usr/src/app/vendor/pheromone/phpcs-security-audit" && \
+      "/usr/src/app/vendor/drupal/coder/coder_sniffer,/usr/src/app/vendor/escapestudios/symfony2-coding-standard,/usr/src/app/vendor/wp-coding-standards/wpcs,/usr/src/app/vendor/yiisoft/yii2-coding-standards,/usr/src/app/vendor/magento/marketplace-eqp,/usr/src/app/vendor/magento/magento-coding-standard,/usr/src/app/vendor/pheromone/phpcs-security-audit,/usr/src/app/vendor/slevomat/coding-standard" && \
     chown -R app:app . && \
-    rm -r ~/.composer
+    rm -r ~/.composer && \
+    cp -r vendor/magento/marketplace-eqp/MEQP vendor/magento/marketplace-eqp/MEQP1
 
 COPY . ./
 
