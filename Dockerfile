@@ -1,4 +1,4 @@
-FROM alpine:3.15.0
+FROM alpine:3.14.3
 
 RUN adduser -u 9000 -D app
 
