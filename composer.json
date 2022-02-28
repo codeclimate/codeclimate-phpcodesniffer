@@ -26,5 +26,10 @@
         "magento/marketplace-eqp": "^4.0",
         "magento/magento-coding-standard": "^4.0",
         "pheromone/phpcs-security-audit": "^1.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
