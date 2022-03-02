@@ -1,4 +1,4 @@
-FROM alpine:3.15.0
+FROM alpine:3.13.7
 
 RUN adduser -u 9000 -D app
 
@@ -30,7 +30,7 @@ RUN apk add --no-cache git && \
     apk del --purge git && \
     vendor/bin/phpcs --config-set \
       installed_paths \
-      "/usr/src/app/vendor/drupal/coder/coder_sniffer,/usr/src/app/vendor/escapestudios/symfony2-coding-standard,/usr/src/app/vendor/wp-coding-standards/wpcs,/usr/src/app/vendor/yiisoft/yii2-coding-standards,/usr/src/app/vendor/magento/marketplace-eqp,/usr/src/app/vendor/magento/magento-coding-standard,/usr/src/app/vendor/pheromone/phpcs-security-audit" && \
+      "/usr/src/app/vendor/drupal/coder/coder_sniffer,/usr/src/app/vendor/escapestudios/symfony2-coding-standard,/usr/src/app/vendor/wp-coding-standards/wpcs,/usr/src/app/vendor/yiisoft/yii2-coding-standards,/usr/src/app/vendor/magento/marketplace-eqp,/usr/src/app/vendor/magento/magento-coding-standard,/usr/src/app/vendor/pheromone/phpcs-security-audit,/usr/src/app/vendor/slevomat/coding-standard" && \
     chown -R app:app . && \
     rm -r ~/.composer
 
