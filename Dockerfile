@@ -1,4 +1,4 @@
-FROM alpine:3.15.0
+FROM alpine:3.13.7
 
 RUN adduser -u 9000 -D app
 
@@ -20,14 +20,9 @@ RUN apk add --no-cache \
       php7-tokenizer \
       php7-xml \
       php7-xmlwriter \
-      php7-zlib && \
-    EXPECTED_SIGNATURE=$(php -r "echo file_get_contents('https://composer.github.io/installer.sig');") && \
-    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-    ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');") && \
-    [ "$EXPECTED_SIGNATURE" = "$ACTUAL_SIGNATURE" ] || (echo "Invalid Composer installer signature"; exit 1) && \
-    php composer-setup.php --quiet && \
-    mv composer.phar /usr/local/bin/composer && \
-    rm -r composer-setup.php ~/.composer
+      php7-zlib
+
+COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 
 COPY composer.json composer.lock ./
 
