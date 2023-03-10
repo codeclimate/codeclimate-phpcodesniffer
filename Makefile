@@ -2,7 +2,10 @@
 
 IMAGE_NAME ?= codeclimate/codeclimate-phpcodesniffer
 RELEASE_REGISTRY ?= codeclimate
-RELEASE_TAG ?= latest
+
+ifndef RELEASE_TAG
+override RELEASE_TAG = latest
+endif
 
 composer-update:
 	docker run \
