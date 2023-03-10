@@ -1,6 +1,11 @@
-.PHONY: image
+.PHONY: image release
 
 IMAGE_NAME ?= codeclimate/codeclimate-phpcodesniffer
+RELEASE_REGISTRY ?= codeclimate
+
+ifndef RELEASE_TAG
+override RELEASE_TAG = latest
+endif
 
 composer-update:
 	docker run \
@@ -12,3 +17,7 @@ composer-update:
 
 image:
 	docker build --rm -t $(IMAGE_NAME) .
+
+release:
+	docker tag $(IMAGE_NAME) $(RELEASE_REGISTRY)/codeclimate-phpcodesniffer:$(RELEASE_TAG)
+	docker push $(RELEASE_REGISTRY)/codeclimate-phpcodesniffer:$(RELEASE_TAG)
